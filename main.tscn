@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c32mm7cmq7xsy"]
+[gd_scene load_steps=20 format=3 uid="uid://c32mm7cmq7xsy"]
 
 [ext_resource type="Script" uid="uid://cgkkrobkkcciw" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://crmnqj6qm3dsn" path="res://player.tscn" id="1_ig7tw"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://6msm5q2f2q4p" path="res://score_label.gd" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://c78q3asd43f0e" path="res://art/Cat.glb" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://xgygwrcsom2" path="res://art/Dead Trees.glb" id="7_efxa6"]
+[ext_resource type="FontFile" uid="uid://csouuiov42ak0" path="res://art/TH Charmonman Bold.ttf" id="10_efxa6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 size = Vector3(60, 2, 60)
@@ -39,8 +40,8 @@ default_font = ExtResource("4_lquwl")
 default_font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_lquwl"]
-font = ExtResource("4_lquwl")
-font_size = 22
+font = ExtResource("10_efxa6")
+font_size = 30
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
