@@ -1,0 +1,167 @@
+[gd_scene load_steps=19 format=3 uid="uid://c32mm7cmq7xsy"]
+
+[ext_resource type="Script" uid="uid://cgkkrobkkcciw" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://crmnqj6qm3dsn" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cxoaakctxp3p7" path="res://mob.tscn" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cvauodjhwpu56" path="res://art/Dead Trees_MapleTree_Bark.png" id="3_4c57u"]
+[ext_resource type="PackedScene" uid="uid://d3ld3mr7rlvmo" path="res://art/Low Building.glb" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://ffuyopjdwoes" path="res://art/Temple.glb" id="4_272bh"]
+[ext_resource type="FontFile" uid="uid://bwc5cd18qfmao" path="res://fonts/Montserrat-Medium.ttf" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://6msm5q2f2q4p" path="res://score_label.gd" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://c78q3asd43f0e" path="res://art/Cat.glb" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://xgygwrcsom2" path="res://art/Dead Trees.glb" id="7_efxa6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg77c"]
+albedo_texture = ExtResource("3_4c57u")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(0.252556, 0.563615, 1.92523e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_h2yge")
+
+[sub_resource type="Curve3D" id="Curve3D_1bvp3"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -24.0983, 0, -24.3025, 0, 0, 0, 0, 0, 0, 23.6898, 0, -24.0983, 0, 0, 0, 0, 0, 0, 23.6898, 0, 23.6898, 0, 0, 0, 0, 0, 0, -24.3025, 0, 23.6898),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Theme" id="Theme_272bh"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_lquwl"]
+font = ExtResource("4_lquwl")
+font_size = 22
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_h2yge")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+material_override = SubResource("StandardMaterial3D_dg77c")
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="Low Building" parent="Ground" instance=ExtResource("3_7mycd")]
+transform = Transform3D(10.1, 0, 0, 0, 10.1, 0, 0, 0, 10.1, -10, 0, 0)
+visible = false
+
+[node name="Root Scene" parent="Ground" instance=ExtResource("4_272bh")]
+transform = Transform3D(2.64219, 0, -4.24486, 0, 5, 0, 4.24486, 0, 2.64219, 8, 1, -4)
+
+[node name="Cat" parent="Ground" instance=ExtResource("6_7mycd")]
+transform = Transform3D(-0.252874, 0, -0.0792458, 0, 0.265, 0, 0.0792458, 0, -0.252874, 9, 1, 2)
+
+[node name="Root Scene2" parent="Ground" instance=ExtResource("7_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 1, -6)
+
+[node name="Root Scene3" parent="Ground" instance=ExtResource("7_efxa6")]
+transform = Transform3D(0.919135, 0, -0.393942, 0, 1, 0, 0.393942, 0, 0.919135, -27.91, 1, 2)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+projection = 1
+size = 19.0
+
+[node name="Cylinders" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -24)
+mesh = SubResource("CylinderMesh_ig7tw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -24)
+mesh = SubResource("CylinderMesh_ig7tw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 24)
+mesh = SubResource("CylinderMesh_ig7tw")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 24)
+mesh = SubResource("CylinderMesh_ig7tw")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_1bvp3")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(-0.00427297, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00427297, -24.0983, 0, -24.3025)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.0
+offset_right = 94.0
+offset_bottom = 56.0
+theme = SubResource("Theme_272bh")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0
+663380256-8 จิรโชติ พิมพาเลีย"
+label_settings = SubResource("LabelSettings_lquwl")
+uppercase = true
+script = ExtResource("5_7mycd")
+
+[node name="Retry" type="ColorRect" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.376471)
+
+[node name="Label" type="Label" parent="UserInterface/Retry"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -11.5
+offset_right = 77.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter to retry."
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
